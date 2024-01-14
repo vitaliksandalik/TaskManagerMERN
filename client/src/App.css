@@ -1,0 +1,32 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.task-control {
+  display: flex;
+}
+.task-input {
+  padding: 10px;
+}
+.single-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  margin-right: 8px;
+}
+.submit-button {
+  border-radius: 8px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  background-color: #1a1a1a;
+}
+.delete-button {
+  background-color: transparent;
+  border: none;
+}
