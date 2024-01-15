@@ -9,6 +9,7 @@
 }
 .task-input {
   padding: 10px;
+  width: 100%;
 }
 .single-task {
   display: flex;
@@ -29,4 +30,32 @@
 .delete-button {
   background-color: transparent;
   border: none;
+}
+.task-edit-field {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  justify-items: start;
+  gap: 0 1rem;
+  margin-bottom: 0.75rem;
+}
+.task-form {
+  margin-bottom: 20px;
+}
+.task-edit-container,
+main {
+  padding: 50px;
+  border: 4px solid rgb(40, 40, 50);
+  border-radius: 10px;
+  background-color: rgb(23, 23, 23);
+}
+main {
+  width: 400px;
+}
+.task-edit-container button {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.task-edit-container h3 {
+  color: green;
 }

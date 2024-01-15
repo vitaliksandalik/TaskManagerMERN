@@ -1,13 +1,17 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import './styles/App.css'
 import Tasks from './components/Tasks'
+import TaskDetail from './components/TaskDetail'
 
 function App() {
   return (
-    <>
-      <Tasks />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/tasks" element={<Tasks />} />
+        <Route path="/tasks/:id" element={<TaskDetail />} />
+      </Routes>
+    </Router>
   )
 }
 
