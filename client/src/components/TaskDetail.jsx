@@ -6,6 +6,7 @@ function TaskDetail() {
   let { id } = useParams()
   const [taskData, setTaskData] = useState({ name: '', completed: false })
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
@@ -40,9 +41,11 @@ function TaskDetail() {
       } else {
         console.error('Failed to update task')
         setSuccess(false)
+        setError(true)
       }
     } catch (error) {
       console.error('Error:', error)
+      setError(true)
     }
   }
 
@@ -81,7 +84,8 @@ function TaskDetail() {
         <button className="submit-button">Back to the tasks</button>
       </Link>
 
-      {success ? <h3>Success</h3> : null}
+      {success ? <h3 className="success">Success</h3> : null}
+      {error ? <h3 className="error">Error</h3> : null}
     </div>
   )
 }
