@@ -1,0 +1,123 @@
+main {
+  padding: 3.125rem;
+  border: none;
+  border-radius: 0.625rem;
+  background-color: var(--primary-color);
+  box-shadow: var(--primary-color-light-rgba) 0px 54px 55px,
+    var(--primary-color-light-rgba) 0px -12px 30px,
+    var(--primary-color-light-rgba) 0px 4px 6px,
+    var(--primary-color-light-rgba) 0px 12px 13px,
+    var(--primary-color-light-rgba) 0px -3px 5px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.task-manager-title {
+  font-size: 2rem;
+  color: var(--header-color);
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2.375rem;
+}
+
+.tasks-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  border: 0 solid var(--border-color);
+  border-radius: 0.625rem;
+  background-color: var(--primary-color);
+  margin-bottom: 3.125rem;
+}
+
+.tasks-control-panel {
+  display: flex;
+}
+
+.tasks-input {
+  padding: 0.9375rem;
+  width: 100%;
+  border: 1px solid var(--transparent-color);
+  border-right: 1px solid var(--primary-color-dark-rgba);
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  background-color: var(--primary-color-dark-rgba);
+}
+::placeholder {
+  color: var(--title-color);
+}
+
+.tasks-submit-btn {
+  border-radius: 0.5rem;
+  padding: 0.6em 1.2em;
+  background-color: var(--primary-color-dark-rgba);
+  border: 1px solid var(--transparent-color);
+  color: var(--title-color);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.task-delete-btn {
+  background-color: var(--transparent-color);
+  border: none;
+}
+
+.task-item {
+  border: 2px solid var(--transparent-color);
+  background-color: var(--primary-color-dark-rgba);
+  padding: 0.0625rem 1.875rem;
+  border-radius: 0.8125rem;
+  margin-bottom: 0.625rem;
+  color: white;
+}
+
+.tasks-list {
+  padding: 1.25rem;
+  margin-top: 1.875rem;
+  border-radius: 0.625rem;
+  box-shadow: 0px 1px 2px var(--primary-color-light-rgba);
+}
+
+.task-title {
+  font-size: 1.15rem;
+  margin-left: 0.625rem;
+  margin-right: 6.25rem;
+  color: var(--title-color);
+  overflow-wrap: normal;
+  white-space: normal;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.icon {
+  font-size: 1.2rem;
+  color: var(--icon-color);
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--icon-hover-color);
+}
+
+@media (max-width: 600px) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    font-size: 16px;
+  }
+  main {
+    width: 100%;
+  }
+}

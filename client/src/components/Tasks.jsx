@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/Tasks.css'
+import ThemeSwitcher from './ThemeSwitcher'
+import { ip, port } from '../constants'
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
   const [inputData, setInputData] = useState('')
   const fetchTasks = async () => {
     try {
-      const response = await fetch('http://localhost:1234/api/v1/tasks')
+      const response = await fetch(`http://${ip}:${port}/api/v1/tasks`)
       let data = await response.json()
       data = data.tasks
       setTasks(data)
@@ -19,7 +22,7 @@ const Tasks = () => {
   }, [])
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:1234/api/v1/tasks`, {
+      const response = await fetch(`http://${ip}:${port}/api/v1/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +42,7 @@ const Tasks = () => {
   }
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:1234/api/v1/tasks/${id}`, {
+      const response = await fetch(`http://${ip}:${port}/api/v1/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -55,41 +58,59 @@ const Tasks = () => {
       console.error('Error:', error)
     }
   }
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+      const length = inputData.length
+      inputRef.current.setSelectionRange(length, length)
+    }
+  }, [inputData])
   return (
     <>
       <main>
-        <div className="task-form">
-          <h2>Task Manager</h2>
-          <div className="task-control">
+        <div className="tasks-form">
+          <h2 className="task-manager-title">Task Manager</h2>
+          <div className="tasks-control-panel">
             <input
+              ref={inputRef}
               type="text"
-              className="task-input"
-              placeholder="ex. Buy ETH"
+              className="tasks-input"
+              placeholder="e.g. Kill someone"
               onChange={(e) => {
                 setInputData(e.target.value)
               }}
+              value={inputData}
+              onKeyDown={handleKeyDown}
             />
-            <button className="submit-button" onClick={handleSubmit}>
+            <button className="tasks-submit-btn" onClick={handleSubmit}>
               Submit
             </button>
           </div>
         </div>
-        <div className="tasks">
+        <div className="tasks-list">
           {tasks.map((task) => (
-            <div className="single-task" key={task._id}>
+            <div className="task-item" key={task._id}>
               <h3
+                className="task-title"
                 style={{
                   textDecoration: task.completed ? 'line-through' : 'none',
                 }}
               >
                 {task.name}
               </h3>
-              <div className="task-links">
+              <div className="tasks-navigation-links">
                 <Link to={`/tasks/${task._id}`}>
                   <i className="fa-regular fa-pen-to-square icon"></i>
                 </Link>
                 <button
-                  className="delete-button"
+                  className="task-delete-btn"
                   onClick={() => handleDelete(task._id)}
                 >
                   <i className="fa-solid fa-trash icon"></i>
@@ -99,6 +120,7 @@ const Tasks = () => {
           ))}
         </div>
       </main>
+      <ThemeSwitcher />
     </>
   )
 }

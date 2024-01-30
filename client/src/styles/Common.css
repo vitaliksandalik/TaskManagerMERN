@@ -4,22 +4,22 @@
   padding: 2rem;
   text-align: center;
 }
-.task-control {
+.tasks-list-control-panel {
   display: flex;
 }
-.task-input {
+.tasks-list-input {
   padding: 10px;
   width: 100%;
 }
-.single-task {
+.task-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.icon {
+.task-icon {
   margin-right: 8px;
 }
-.submit-button {
+.tasks-list-submit-btn {
   border-radius: 8px;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
@@ -27,11 +27,11 @@
   padding: 0.6em 1.2em;
   background-color: #1a1a1a;
 }
-.delete-button {
+.task-delete-btn {
   background-color: transparent;
   border: none;
 }
-.task-edit-field {
+.task-detail-input-field {
   display: grid;
   grid-template-columns: 150px 1fr;
   align-items: center;
@@ -39,10 +39,10 @@
   gap: 0 1rem;
   margin-bottom: 0.75rem;
 }
-.task-form {
+.tasks-list-form {
   margin-bottom: 20px;
 }
-.task-edit-container,
+.task-detail-container,
 main {
   padding: 50px;
   border: 4px solid rgb(40, 40, 50);
@@ -52,13 +52,13 @@ main {
 main {
   width: 400px;
 }
-.task-edit-container button {
+.task-detail-container button {
   width: 100%;
   margin-bottom: 5px;
 }
-.task-edit-container .success {
+.task-detail-container .task-detail-success {
   color: green;
 }
-.task-edit-container .error {
+.task-detail-container .task-detail-error {
   color: red;
 }
