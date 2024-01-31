@@ -1,4 +1,5 @@
 .task-detail-container {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   padding: 2rem;
   width: 100%;
   max-width: 40rem;
@@ -42,6 +43,7 @@
   border-radius: 0.3125rem;
   background-color: var(--primary-color-dark-rgba);
   box-sizing: border-box;
+  color: rgb(162, 166, 166);
 }
 
 .task-detail-submit-btn {

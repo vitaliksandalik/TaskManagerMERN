@@ -13,17 +13,19 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <div className="themes-container">
-      {themes.map((t) => (
-        <button
-          key={t.name}
-          onClick={() => handleSwitch(t.name)}
-          className="theme-button"
-          style={{
-            background: `linear-gradient(to right, ${t.primary} 50%, ${t.primaryDark} 50%)`,
-          }}
-        />
-      ))}
+    <div className="body-wrapper">
+      <div className="themes-container">
+        {themes.map((t) => (
+          <button
+            key={t.name}
+            onClick={() => handleSwitch(t.name)}
+            className="theme-button"
+            style={{
+              background: `linear-gradient(to right, ${t.primary} 50%, ${t.primaryDark} 50%)`,
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }

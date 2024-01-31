@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom'
 import '../styles/Tasks.css'
 import ThemeSwitcher from './ThemeSwitcher'
 import { ip, port } from '../constants'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
   const [inputData, setInputData] = useState('')
@@ -93,6 +102,16 @@ const Tasks = () => {
               Submit
             </button>
           </div>
+          <ThemeProvider theme={darkTheme}>
+            <DemoContainer components={['DateTimePicker']}>
+              <DateTimePicker
+                className="date-time-picker"
+                sx={{
+                  '& fieldset': { border: 'none' },
+                }}
+              />
+            </DemoContainer>
+          </ThemeProvider>
         </div>
         <div className="tasks-list">
           {tasks.map((task) => (
@@ -105,6 +124,7 @@ const Tasks = () => {
               >
                 {task.name}
               </h3>
+              <div className="task-deadline">24/12/2024</div>
               <div className="tasks-navigation-links">
                 <Link to={`/tasks/${task._id}`}>
                   <i className="fa-regular fa-pen-to-square icon"></i>
