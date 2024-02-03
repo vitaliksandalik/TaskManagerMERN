@@ -8,6 +8,12 @@ const taskSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  deadline: {
+    type: Object,
+  },
+  creationDate: {
+    type: Object,
+  },
 })
 
 module.exports = mongoose.model('Task', taskSchema)

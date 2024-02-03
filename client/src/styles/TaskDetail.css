@@ -81,7 +81,7 @@
 }
 
 .task-detail-message.success {
-  color: greenyellow;
+  color: rgb(0, 198, 23);
 }
 
 .task-detail-message.error {

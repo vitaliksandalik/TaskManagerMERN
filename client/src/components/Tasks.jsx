@@ -7,15 +7,39 @@ import { ip, port } from '../constants'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import ProgressBar from './Progressbar'
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
 })
+const formatDate = (dateString) => {
+  if (!dateString) return ''
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }
+  return new Date(dateString).toLocaleDateString(undefined, options)
+}
+const calculatePercentage = (task) => {
+  const now = new Date()
+  const creationDate = new Date(task.creationDate)
+  const deadline = new Date(task.deadline)
+
+  const totalDuration = deadline - creationDate
+  const elapsed = now - creationDate
+  const percentage = Math.min(100, (elapsed / totalDuration) * 100)
+
+  return percentage
+}
 const Tasks = () => {
   const [tasks, setTasks] = useState([])
   const [inputData, setInputData] = useState('')
+  const [deadline, setDeadline] = useState({})
   const fetchTasks = async () => {
     try {
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks`)
@@ -31,12 +55,14 @@ const Tasks = () => {
   }, [])
   const handleSubmit = async () => {
     try {
+      console.log(deadline.$d)
+      console.log(typeof deadline)
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: inputData }),
+        body: JSON.stringify({ name: inputData, deadline }),
       })
       if (response.ok) {
         console.log('Task created successfully')
@@ -86,11 +112,11 @@ const Tasks = () => {
       <main>
         <div className="tasks-form">
           <h2 className="task-manager-title">Task Manager</h2>
-          <div className="tasks-control-panel">
+          <div className="tasks-control-panel container">
             <input
               ref={inputRef}
               type="text"
-              className="tasks-input"
+              className="tasks-input item1"
               placeholder="e.g. Kill someone"
               onChange={(e) => {
                 setInputData(e.target.value)
@@ -98,20 +124,22 @@ const Tasks = () => {
               value={inputData}
               onKeyDown={handleKeyDown}
             />
-            <button className="tasks-submit-btn" onClick={handleSubmit}>
+            <button className="tasks-submit-btn item2" onClick={handleSubmit}>
               Submit
             </button>
+            <ThemeProvider theme={darkTheme}>
+              <DemoContainer components={['DateTimePicker']}>
+                <DateTimePicker
+                  value={deadline}
+                  onChange={(date) => setDeadline(date)}
+                  className="date-time-picker item3"
+                  sx={{
+                    '& fieldset': { border: 'none' },
+                  }}
+                />
+              </DemoContainer>
+            </ThemeProvider>
           </div>
-          <ThemeProvider theme={darkTheme}>
-            <DemoContainer components={['DateTimePicker']}>
-              <DateTimePicker
-                className="date-time-picker"
-                sx={{
-                  '& fieldset': { border: 'none' },
-                }}
-              />
-            </DemoContainer>
-          </ThemeProvider>
         </div>
         <div className="tasks-list">
           {tasks.map((task) => (
@@ -124,7 +152,7 @@ const Tasks = () => {
               >
                 {task.name}
               </h3>
-              <div className="task-deadline">24/12/2024</div>
+              <div className="task-deadline">{formatDate(task.deadline)}</div>
               <div className="tasks-navigation-links">
                 <Link to={`/tasks/${task._id}`}>
                   <i className="fa-regular fa-pen-to-square icon"></i>
@@ -136,6 +164,7 @@ const Tasks = () => {
                   <i className="fa-solid fa-trash icon"></i>
                 </button>
               </div>
+              <ProgressBar percentage={calculatePercentage(task)} />
             </div>
           ))}
         </div>
