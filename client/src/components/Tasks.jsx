@@ -33,6 +33,7 @@ const calculatePercentage = (task) => {
   const totalDuration = deadline - creationDate
   const elapsed = now - creationDate
   const percentage = Math.min(100, (elapsed / totalDuration) * 100)
+  console.log(percentage)
 
   return percentage
 }
@@ -52,6 +53,18 @@ const Tasks = () => {
   }
   useEffect(() => {
     fetchTasks()
+  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTasks((currentTasks) => {
+        return currentTasks.map((task) => {
+          const updatedProgress = calculatePercentage(task)
+          return { ...task, progress: updatedProgress }
+        })
+      })
+    }, 1000 * 1) // update every second
+
+    return () => clearInterval(interval)
   }, [])
   const handleSubmit = async () => {
     try {
@@ -143,28 +156,31 @@ const Tasks = () => {
         </div>
         <div className="tasks-list">
           {tasks.map((task) => (
-            <div className="task-item" key={task._id}>
-              <h3
-                className="task-title"
-                style={{
-                  textDecoration: task.completed ? 'line-through' : 'none',
-                }}
-              >
-                {task.name}
-              </h3>
-              <div className="task-deadline">{formatDate(task.deadline)}</div>
-              <div className="tasks-navigation-links">
-                <Link to={`/tasks/${task._id}`}>
-                  <i className="fa-regular fa-pen-to-square icon"></i>
-                </Link>
-                <button
-                  className="task-delete-btn"
-                  onClick={() => handleDelete(task._id)}
+            <div key={task._id} className="task-item">
+              <div className="task-grid">
+                <h3
+                  className="task-title"
+                  style={{
+                    textDecoration: task.completed ? 'line-through' : 'none',
+                  }}
+                  title={`Deadline: ${formatDate(task.deadline)}`}
                 >
-                  <i className="fa-solid fa-trash icon"></i>
-                </button>
+                  {task.name}
+                </h3>
+                <span className="tooltip">{formatDate(task.deadline)}</span>
+                <div className="tasks-navigation-links">
+                  <Link to={`/tasks/${task._id}`}>
+                    <i className="fa-regular fa-pen-to-square icon"></i>
+                  </Link>
+                  <button
+                    className="task-delete-btn"
+                    onClick={() => handleDelete(task._id)}
+                  >
+                    <i className="fa-solid fa-trash icon"></i>
+                  </button>
+                </div>
               </div>
-              <ProgressBar percentage={calculatePercentage(task)} />
+              <ProgressBar percentage={task.progress} />
             </div>
           ))}
         </div>

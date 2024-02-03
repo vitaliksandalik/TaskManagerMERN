@@ -102,15 +102,29 @@ main {
 }
 
 .task-item {
-  display: grid;
+  display: flex;
+  justify-content: center; /* Ensures the progress bar is pushed to the bottom */
+  flex-direction: column;
   text-align: start;
-  grid-template-columns: 1fr 100px 50px;
-  border: 2px solid var(--transparent-color);
+  border: 0px solid var(--transparent-color);
   background-color: var(--primary-color-dark-rgba);
   padding: 0.0625rem 0.875rem;
   border-radius: 0.8125rem;
   margin-bottom: 0.625rem;
   color: white;
+  overflow: hidden;
+  align-items: center;
+}
+.task-grid {
+  width: 100%;
+  display: grid;
+  justify-content: space-between; /* Ensures the progress bar is pushed to the bottom */
+  grid-template-columns: 1fr 50px;
+}
+.tasks-navigation-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tasks-list {
@@ -160,4 +174,37 @@ main {
   main {
     width: 100%;
   }
+}
+
+.task-title-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0s;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
