@@ -45,7 +45,10 @@ const Tasks = () => {
     try {
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks`)
       let data = await response.json()
-      data = data.tasks
+      data = data.tasks.map((task) => {
+        const initialProgress = calculatePercentage(task)
+        return { ...task, progress: initialProgress }
+      })
       setTasks(data)
     } catch (error) {
       console.error('Error fetching tasks:', error)

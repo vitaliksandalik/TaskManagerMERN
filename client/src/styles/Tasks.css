@@ -6,7 +6,7 @@ button {
   transition: color 0.25s;
 }
 button:hover {
-  color: #ff0000;
+  color: var(--primary-color);
 }
 
 main {
@@ -103,7 +103,7 @@ main {
 
 .task-item {
   display: flex;
-  justify-content: center; /* Ensures the progress bar is pushed to the bottom */
+  justify-content: center;
   flex-direction: column;
   text-align: start;
   border: 0px solid var(--transparent-color);
@@ -118,7 +118,7 @@ main {
 .task-grid {
   width: 100%;
   display: grid;
-  justify-content: space-between; /* Ensures the progress bar is pushed to the bottom */
+  justify-content: space-between;
   grid-template-columns: 1fr 50px;
 }
 .tasks-navigation-links {

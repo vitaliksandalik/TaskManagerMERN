@@ -34,7 +34,11 @@ const getTask = async (req, res) => {
 }
 const updateTask = async (req, res) => {
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    const taskData = {
+      ...req.body,
+      creationDate: new Date().toISOString(),
+    }
+    const task = await Task.findByIdAndUpdate(req.params.id, taskData, {
       new: true,
       runValidators: true,
     })

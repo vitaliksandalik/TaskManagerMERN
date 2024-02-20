@@ -3,11 +3,25 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import '../styles/TaskDetail.css'
 import ThemeSwitcher from './ThemeSwitcher'
 import { ip, port } from '../constants'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import dayjs from 'dayjs'
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
 
 function TaskDetail() {
   let { id } = useParams()
   let navigate = useNavigate()
-  const [taskData, setTaskData] = useState({ name: '', completed: false })
+  const [taskData, setTaskData] = useState({
+    name: '',
+    completed: false,
+  })
+  const [deadline, setDeadline] = useState({})
   const [message, setMessage] = useState({ text: '', type: '' })
   const [showMessage, setShowMessage] = useState(false)
   const [redirectCountdown, setRedirectCountdown] = useState(null)
@@ -18,7 +32,11 @@ function TaskDetail() {
         const response = await fetch(`http://${ip}:${port}/api/v1/tasks/${id}`)
         const data = await response.json()
         if (response.ok) {
-          setTaskData({ name: data.task.name, completed: data.task.completed })
+          setTaskData({
+            name: data.task.name,
+            completed: data.task.completed,
+          })
+          setDeadline(data.task.deadline)
         } else {
           console.error('Failed to fetch task')
         }
@@ -54,12 +72,16 @@ function TaskDetail() {
 
   const handleSubmit = async () => {
     try {
+      const updatedTaskData = {
+        ...taskData,
+        deadline: deadline.toISOString(),
+      }
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(taskData),
+        body: JSON.stringify(updatedTaskData),
       })
       if (response.ok) {
         displayMessage('Sending you back...', 'success')
@@ -83,8 +105,19 @@ function TaskDetail() {
       <div className="task-detail-container">
         <h2 className="task-manager-title">Edit Task</h2>
         <div className="task-detail-input-field">
-          <span>Task ID</span>
-          <p>{id}</p>
+          <span>Deadline</span>
+          <ThemeProvider theme={darkTheme}>
+            <DemoContainer components={['DateTimePicker']}>
+              <DateTimePicker
+                value={dayjs(deadline)}
+                onChange={(deadline) => setDeadline(deadline)}
+                className="date-time-picker item3"
+                sx={{
+                  '& fieldset': { border: 'none' },
+                }}
+              />
+            </DemoContainer>
+          </ThemeProvider>
         </div>
         <div className="task-detail-form-group">
           <div className="task-detail-input-field">
