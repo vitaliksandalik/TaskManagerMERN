@@ -8,11 +8,11 @@ const {
   updateTask,
   deleteTask,
 } = require('../controllers/tasks')
-
-router.get('/', getAllTasks)
-router.post('/', addTask)
-router.get('/:id', getTask)
-router.patch('/:id', updateTask)
-router.delete('/:id', deleteTask)
+const verifyToken = require('../middleware/verifyToken')
+router.get('/', verifyToken, getAllTasks)
+router.post('/', verifyToken, addTask)
+router.get('/:id', verifyToken, getTask)
+router.patch('/:id', verifyToken, updateTask)
+router.delete('/:id', verifyToken, deleteTask)
 
 module.exports = router

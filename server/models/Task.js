@@ -14,6 +14,10 @@ const taskSchema = new mongoose.Schema({
   creationDate: {
     type: Object,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
 })
 
 module.exports = mongoose.model('Task', taskSchema)

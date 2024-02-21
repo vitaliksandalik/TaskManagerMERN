@@ -2,7 +2,8 @@ const e = require('express')
 const Task = require('../models/Task')
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await Task.find()
+    const tasks = await Task.find({ userId: req.user._id })
+    console.log(tasks)
     res.status(200).json({ tasks })
   } catch (error) {
     res.status(500).send('Server error')
@@ -13,6 +14,7 @@ const addTask = async (req, res) => {
     const taskData = {
       ...req.body,
       creationDate: new Date().toISOString(),
+      userId: req.user._id,
     }
 
     const task = await Task.create(taskData)

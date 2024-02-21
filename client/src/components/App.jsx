@@ -6,17 +6,24 @@ import Tasks from './Tasks'
 import TaskDetail from './TaskDetail'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AuthProvider } from './AuthProvider'
+import LoginForm from './LoginForm'
+import RegistrationForm from './RegistrationForm'
 
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider>
-        <Router>
-          <Routes>
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/tasks/:id" element={<TaskDetail />} />
-          </Routes>
-        </Router>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegistrationForm />} />
+              <Route path="/tasks" element={<Tasks />} />
+              <Route path="/tasks/:id" element={<TaskDetail />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
       </ThemeProvider>
     </LocalizationProvider>
   )

@@ -43,7 +43,19 @@ const Tasks = () => {
   const [deadline, setDeadline] = useState({})
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`http://${ip}:${port}/api/v1/tasks`)
+      // Retrieve the token from local storage
+      const token = localStorage.getItem('token')
+
+      const response = await fetch(`http://${ip}:${port}/api/v1/tasks`, {
+        headers: {
+          'auth-token': `Bearer ${token}`,
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       let data = await response.json()
       data = data.tasks.map((task) => {
         const initialProgress = calculatePercentage(task)
@@ -71,12 +83,12 @@ const Tasks = () => {
   }, [])
   const handleSubmit = async () => {
     try {
-      console.log(deadline.$d)
-      console.log(typeof deadline)
+      const token = localStorage.getItem('token')
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'auth-token': `Bearer ${token}`,
         },
         body: JSON.stringify({ name: inputData, deadline }),
       })
@@ -93,10 +105,12 @@ const Tasks = () => {
   }
   const handleDelete = async (id) => {
     try {
+      const token = localStorage.getItem('token')
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'auth-token': `Bearer ${token}`,
         },
       })
       if (response.ok) {
