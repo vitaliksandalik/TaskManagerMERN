@@ -9,6 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { AuthProvider } from './AuthProvider'
 import LoginForm from './LoginForm'
 import RegistrationForm from './RegistrationForm'
+import Sidebar from './SideBar'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <Router>
+            <Sidebar />
             <Routes>
               <Route path="/login" element={<LoginForm />} />
               <Route path="/register" element={<RegistrationForm />} />

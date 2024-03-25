@@ -72,25 +72,28 @@ function TaskDetail() {
 
   const handleSubmit = async () => {
     try {
+      const token = localStorage.getItem('token')
       const updatedTaskData = {
         ...taskData,
-        deadline: deadline.toISOString(),
+        deadline: deadline instanceof dayjs ? deadline.toISOString() : deadline,
       }
       const response = await fetch(`http://${ip}:${port}/api/v1/tasks/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          'Auth-Token': `Bearer ${token}`,
         },
         body: JSON.stringify(updatedTaskData),
       })
       if (response.ok) {
-        displayMessage('Sending you back...', 'success')
+        displayMessage('Task updated successfully', 'success')
         setRedirectCountdown(3)
       } else {
         displayMessage('Failed to update task', 'error')
       }
     } catch (error) {
       displayMessage('Error updating task', 'error')
+      console.error('Error:', error)
     }
   }
 

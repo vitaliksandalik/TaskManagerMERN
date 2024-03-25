@@ -147,7 +147,7 @@ const Tasks = () => {
               ref={inputRef}
               type="text"
               className="tasks-input item1"
-              placeholder="e.g. Kill someone"
+              placeholder="e.g. Buy Bitcoin"
               onChange={(e) => {
                 setInputData(e.target.value)
               }}

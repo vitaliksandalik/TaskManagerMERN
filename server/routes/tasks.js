@@ -11,7 +11,7 @@ const {
 const verifyToken = require('../middleware/verifyToken')
 router.get('/', verifyToken, getAllTasks)
 router.post('/', verifyToken, addTask)
-router.get('/:id', verifyToken, getTask)
+router.get('/:id', getTask)
 router.patch('/:id', verifyToken, updateTask)
 router.delete('/:id', verifyToken, deleteTask)
 

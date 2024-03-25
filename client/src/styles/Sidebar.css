@@ -1,0 +1,103 @@
+.sidebar {
+  background-color: var(--primary-color);
+  box-shadow: var(--primary-color-light-rgba) 0px 54px 55px,
+    var(--primary-color-light-rgba) 0px -12px 30px,
+    var(--primary-color-light-rgba) 0px 4px 6px,
+    var(--primary-color-light-rgba) 0px 12px 13px,
+    var(--primary-color-light-rgba) 0px -3px 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  width: 17rem;
+  height: 100vh;
+  transition: 0.5s all;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+.open-close-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+.open-close-icon {
+  color: var(--header-color);
+}
+.title {
+  font-size: 28px;
+  color: var(--header-color);
+  padding: 0;
+}
+
+.contents-container ul {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(min-content, 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.contents-container i {
+  margin-left: 3.3rem;
+}
+.contents-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.header-container {
+  border-bottom: 0.01rem solid rgba(255, 255, 255, 0.1);
+}
+
+.contents-container li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  text-align: start;
+  border-bottom: 0.01rem solid rgba(255, 255, 255, 0.1);
+  background-color: var(--primary-color-dark-rgba);
+  padding: 1rem 0;
+  color: var(--title-color);
+  overflow: hidden;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 54px 55px,
+    rgba(255, 255, 255, 0.1) 0px -12px 30px,
+    rgba(255, 255, 255, 0.1) 0px 4px 6px, rgba(255, 255, 255, 0.1) 0px 12px 13px,
+    rgba(255, 255, 255, 0.1) 0px -3px 5px;
+}
+.contents-container li:hover {
+  background-color: rgba(27, 103, 27, 0.99);
+  transition: 0.25s background-color ease-in-out;
+}
+
+.contents-container li a {
+  font-size: 1.4rem;
+  color: var(--title-color);
+  text-decoration: none;
+}
+
+.contents-container li i {
+  margin-right: 10px;
+}
+
+.sidebar.active {
+  width: 17rem;
+}
+
+.sidebar.closed {
+  width: 8rem;
+
+  transition: width 0.5s ease;
+  z-index: 0;
+}
+
+.sidebar.closed .title,
+.sidebar.closed .contents-container li a {
+  opacity: 0;
+}
