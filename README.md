@@ -21,5 +21,5 @@ I'm constantly working to make the Task Manager application even better. Here ar
 
 ## Getting Started
 
-Interested in exploring the Todo List application further? I'm here to help you get everything set up and running on your local machine for development and testing purposes. Follow the setup instructions in the documentation, and feel free to reach out if you need any assistance.
+Interested in exploring the Todo List application further? I'm here to help you get everything set up and running on your local machine for development and testing purposes. Feel free to message me! I have multiple socials in my profile 🔗.
 
